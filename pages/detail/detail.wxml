@@ -1,0 +1,37 @@
+<swiper indicator-dots="{{false}}" autoplay="{{true}}" interval="{{5000}}" duration="{{500}}">
+  <block wx:for="{{info.images}}" wx:key="item">
+    <swiper-item>
+      <image class="swiper-image" src="{{item}}" mode="aspectFill" bind:tap="previewHandle" data-src="{{item}}"/>
+    </swiper-item>
+  </block>
+</swiper>
+<view class="info">
+  <view class="name">{{info.name}}</view>
+  <view>电话:{{info.phone}}</view>
+  <view>地址:{{info.address}}</view>
+  <view>营业时间:{{info.businessHours}}</view>
+  <view>{{info.supportService}}}</view>
+</view>
+<view class="introduction" wx:if="{{info.introduction}}">
+  <text>{{info.introduction}}</text>
+</view>
+<view class="comments">
+  <view wx:for="{{info.comments}}" wx:key="index" class="user">
+    <view class="content">
+      <view class="name">{{item.name}}</view>
+      <view class="data">
+        <text>{{item.rating}}</text>
+        <text>{{item.data}}</text>
+      </view>
+    </view>
+    <view class="pic">
+      <image src="{{foo(item)}}" wx:for="{{item.images}}" wx:key="item" mode="aspectFill"  bind:tap="previewUserHandle" data-src="{{foo(item)}}"/>
+    </view>
+  </view>
+</view> 
+
+<wxs module="foo">
+  module.exports=function (src) {
+    return src.replace('w.h','100.100')
+  }
+</wxs>

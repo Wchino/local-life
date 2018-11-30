@@ -1,0 +1,40 @@
+<!--pages/list/list.wxml-->
+<view class="container">
+    <view class="weui-search-bar">
+    <view class="weui-search-bar__form">
+      <view class="weui-search-bar__box">
+        <icon class="weui-icon-search_in-box" type="search" size="14" />
+        <input type="text" class="weui-search-bar__input" placeholder="搜索" value="{{searchText}}" focus="{{searchShowed}}" bindinput="searchChangeHandle" bindconfirm="searchHandle" bindblur="blurHandle"/>
+        <view class="weui-icon-clear" wx:if="{{searchText}}" bindtap="clearSearchHandle">
+          <icon type="clear" size="14" />
+        </view>
+      </view>
+      <label class="weui-search-bar__label" hidden="{{searchShowed}}" bindtap="showSearchHandle">
+        <icon class="weui-icon-search" type="search" size="14" />
+        <view class="weui-search-bar__text">搜索</view>
+      </label>
+    </view>
+    <view class="weui-search-bar__cancel-btn" hidden="{{!searchShowed}}" bindtap="hideSearchHandle">
+      取消
+    </view>
+  </view>
+  <view class="weui-cells searchbar-result"  hidden="{{!searchText}}">
+    <navigator url="" class="weui-cell" hover-class="weui-cell_active" wx:for="{{list}}">
+      <view class="weui-cell__bd">{{item.name}}</view>
+    </navigator>
+  </view>   
+  <navigator class="item" wx:for="{{list}}" wx:key="{{id}}" url="/pages/detail/detail?id={{item.id}}">
+    <image src="{{item.images[0]}}" mode="aspectFill"/>
+    <view class="info">
+      <text class="name">{{item.name}}</text>
+      <text>电话: {{item.phone}}</text>
+      <text>地址: {{item.address}}</text>    
+      <text>营业时间: {{item.businessHours}}</text>
+    </view>
+    <view class="score">
+      <text>{{item.score}}</text>
+    </view>
+  </navigator>
+  <view wx:if="{{hasMore}}" class="loadmore loading">正在加载...</view>
+  <view wx:else class="loadmore">没有更多了</view>
+</view>
